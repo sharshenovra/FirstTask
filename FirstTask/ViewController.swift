@@ -1,19 +1,49 @@
-//
-//  ViewController.swift
-//  FirstTask
-//
-//  Created by Ruslan Sharshenov on 08.01.2022.
-//
-
 import UIKit
+import SnapKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
 
+    private lazy var tableView: UITableView = {
+        let view = UITableView()
+        view.delegate = self
+        view.dataSource = self
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        setupSubviews()
     }
 
+    
+    private var names = ["Айка","Айсулуу","Акинай","Альбина","Алия","Айнура","Амина","Алина","Антонина","Анжелла"]
 
+    private func setupSubviews(){
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 40
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return names.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
+        let index = indexPath.row
+        
+        let cell = UITableViewCell()
+        
+        cell.textLabel?.text = names[index]
+        
+        return cell
+    }
+    
+    
 }
 
